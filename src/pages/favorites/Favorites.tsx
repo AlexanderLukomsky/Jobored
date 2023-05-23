@@ -16,7 +16,7 @@ export const Favorites = () => {
 
   const [page, setPage] = useState(1);
 
-  if (!favoritesData) {
+  if (favoritesData === null || !Object.keys(favoritesData).length) {
     return <NotFound />;
   }
 

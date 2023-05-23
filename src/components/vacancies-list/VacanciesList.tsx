@@ -6,6 +6,7 @@ import { FavoritesStorageKey } from 'common/constants';
 import { useLocalStorage } from 'common/helpers';
 import { VacancyItem } from 'components/vacancy-item';
 import { Nullable } from 'common/types';
+import { NotFound } from 'pages/404';
 
 const fakeArr = [1, 2, 3, 4];
 
@@ -49,14 +50,17 @@ export const VacanciesList = () => {
         <Await resolve={data}>
           {(data: VacanciesData) => (
             <>
-              {data.vacancies.map((vacancy) => (
-                <VacancyItem
-                  onFavoriteClick={handleFavoriteClick}
-                  key={vacancy.id}
-                  vacancy={vacancy}
-                  selected={!!favoritesData && !!favoritesData[vacancy.id]}
-                />
-              ))}
+              {!data.vacancies.length && <NotFound />}
+
+              {!!data.vacancies &&
+                data.vacancies.map((vacancy) => (
+                  <VacancyItem
+                    onFavoriteClick={handleFavoriteClick}
+                    key={vacancy.id}
+                    vacancy={vacancy}
+                    selected={!!favoritesData && !!favoritesData[vacancy.id]}
+                  />
+                ))}
             </>
           )}
         </Await>
