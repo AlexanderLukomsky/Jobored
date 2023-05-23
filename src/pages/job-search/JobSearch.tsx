@@ -17,18 +17,18 @@ export const JobSearch = () => {
     loaderQueryParams: VacanciesRequestParams;
   };
 
-  const { initialPaymentFrom, initialPaymentTo, initialCatalogue, initialPage, initialSearch } =
+  const { initialPaymentFrom, initialPaymentTo, initialCatalogue, page, initialSearch } =
     getInitialValue(loaderQueryParams);
 
   const [paymentFrom, setPaymentFrom] = useState(initialPaymentFrom);
   const [paymentTo, setPaymentTo] = useState(initialPaymentTo);
   const [catalogue, setCatalogue] = useState(initialCatalogue);
-  const [page, setPage] = useState(initialPage);
 
   const handleResetFilters = () => {
     searchParams.delete(searchQuery.payment_from);
     searchParams.delete(searchQuery.payment_to);
     searchParams.delete(searchQuery.catalogues);
+    searchParams.delete(searchQuery.page);
 
     setSearchParams(searchParams);
 
@@ -54,22 +54,17 @@ export const JobSearch = () => {
 
     searchParams.delete(searchQuery.page);
 
-    setPage(1);
-
     setSearchParams(searchParams);
   };
 
   const handleChangePage = (value: number) => {
     searchParams.set('page', `${value - 1}`);
 
-    setPage(value);
-
     setSearchParams(searchParams);
   };
 
   const handleSearch = (value: string) => {
     searchParams.delete(searchQuery.page);
-    setPage(1);
 
     if (value) {
       searchParams.set(searchQuery.keyword, value);
@@ -107,7 +102,7 @@ export const JobSearch = () => {
             {(data: VacanciesData) => (
               <Pagination
                 total={Math.ceil(data.total / 4) > 125 ? 125 : Math.ceil(data.total / 4)}
-                value={page}
+                value={page ? page + 1 : 1}
                 onChange={handleChangePage}
               />
             )}

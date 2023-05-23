@@ -7,11 +7,11 @@ import { ReactComponent as IconDown } from 'common/assets/icons/down.svg';
 import { categoryContainerStyle, categoryTitleStyle } from '../styles';
 
 type SelectCataloguesProps = {
-  defaultValue: Nullable<number>;
+  value: Nullable<number>;
   onChange: (value: Nullable<number>) => void;
 };
 
-export const SelectCatalogues: FC<SelectCataloguesProps> = ({ defaultValue, onChange }) => {
+export const SelectCatalogues: FC<SelectCataloguesProps> = ({ value, onChange }) => {
   const [catalogues, setCatalogues] = useState<Nullable<Catalogue[]>>(null);
 
   useEffect(() => {
@@ -34,12 +34,12 @@ export const SelectCatalogues: FC<SelectCataloguesProps> = ({ defaultValue, onCh
 
       {catalogues && (
         <Select
+          value={value ? `${value}` : null}
           sx={{ input: { fontSize: '14px', height: '42px' } }}
           rightSectionWidth="36px"
           styles={{ rightSection: { pointerEvents: 'none' } }}
           rightSection={<IconDown />}
           onChange={(value) => onChange(value ? +value : null)}
-          defaultValue={`${defaultValue}`}
           placeholder="Выберете отрасль"
           name={searchQuery.catalogues}
           data={catalogues.map((catalogue) => ({

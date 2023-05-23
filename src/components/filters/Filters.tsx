@@ -47,7 +47,7 @@ export const Filters: FC<FiltersProps> = ({
     </Flex>
 
     <form id="search-form" role="search" onSubmit={onSubmit}>
-      <SelectCatalogues defaultValue={catalogue} onChange={onChangeCatalogue} />
+      <SelectCatalogues value={catalogue} onChange={onChangeCatalogue} />
 
       <Flex sx={categoryContainerStyle}>
         <Text sx={categoryTitleStyle} content="p">
