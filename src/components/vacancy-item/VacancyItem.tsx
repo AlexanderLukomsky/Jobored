@@ -8,7 +8,9 @@ import {
   containerStyle,
   dotStyle,
   favoriteIconStyle,
+  paymentContainerStyle,
   paymentStyle,
+  textStyle,
   titleStyle,
   useStales,
 } from './styles';
@@ -35,6 +37,7 @@ export const VacancyItem: FC<VacancyItemProps> = ({
       bg="grayscale.0"
       direction="column"
       sx={{ ...containerStyle.default, ...containerStyle[variant] }}
+      data-elem={`vacancy-${vacancy.id}`}
     >
       <NavLink to={`${PagesPaths.vacancy.path}/${vacancy.id}`}>
         <Title sx={titleStyle[variant]} order={2}>
@@ -42,7 +45,7 @@ export const VacancyItem: FC<VacancyItemProps> = ({
         </Title>
       </NavLink>
 
-      <Flex gap="12px" align="center">
+      <Flex gap="12px" align="center" sx={paymentContainerStyle}>
         {paymentValue && (
           <>
             <Text sx={paymentStyle[variant]} component="p">
@@ -55,7 +58,7 @@ export const VacancyItem: FC<VacancyItemProps> = ({
           </>
         )}
 
-        <Text fz={variant === 'large' ? '20px' : undefined} component="p">
+        <Text sx={textStyle[variant]} component="p">
           {vacancy.type_of_work.title}
         </Text>
       </Flex>
@@ -67,6 +70,7 @@ export const VacancyItem: FC<VacancyItemProps> = ({
         onClick={() => {
           onFavoriteClick(vacancy.id, vacancy);
         }}
+        data-elem={`vacancy-${vacancy.id}-shortlist-button`}
       >
         <FavoriteIcon className={selected ? classes.selected : ''} />
       </ActionIcon>

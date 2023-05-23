@@ -80,7 +80,15 @@ export const JobSearch = () => {
   };
 
   return (
-    <Flex gap="28px" w="100%">
+    <Flex
+      gap="28px"
+      w="100%"
+      sx={{
+        '@media (max-width: 920px)': {
+          flexDirection: 'column' as const,
+        },
+      }}
+    >
       <Filters
         paymentFrom={paymentFrom}
         paymentTo={paymentTo}

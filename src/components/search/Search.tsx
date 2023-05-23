@@ -30,12 +30,13 @@ export const Search: FC<SearchProps> = ({ initialValue = '', onSearch }) => {
         height="48px"
         sx={inputStyle}
         rightSection={
-          <Button onClick={handleButtonClick} sx={buttonStyle}>
+          <Button onClick={handleButtonClick} sx={buttonStyle} data-elem="search-button">
             Поиск
           </Button>
         }
         placeholder="Введите название вакансии"
         rightSectionWidth="105px"
+        data-elem="search-input"
       />
     </Flex>
   );

@@ -23,23 +23,51 @@ export const titleStyle = {
     fontSize: '20px',
     lineHeight: '24px',
     color: theme.colors.blue[5],
+    '@media (max-width: 640px)': {
+      fontSize: '18px',
+    },
   },
 
   large: {
     fontWeight: 700,
     fontSize: '28px',
     lineHeight: '34px',
+    '@media (max-width: 640px)': {
+      fontSize: '18px',
+    },
+  },
+};
+
+export const textStyle = {
+  small: {
+    fontSize: '16px',
+    '@media (max-width: 640px)': {
+      fontSize: '14px',
+    },
+  },
+
+  large: {
+    fontSize: '20px',
+    '@media (max-width: 640px)': {
+      fontSize: '14px',
+    },
   },
 };
 
 export const paymentStyle = {
   small: {
     fontWeight: 600,
+    '@media (max-width: 640px)': {
+      fontSize: '16px',
+    },
   },
 
   large: {
     fontWeight: 700,
     fontSize: '20px',
+    '@media (max-width: 640px)': {
+      fontSize: '16px',
+    },
   },
 };
 
@@ -47,6 +75,9 @@ export const dotStyle = {
   fontSize: '20px',
   lineHeight: '21px',
   color: theme.colors.grayscale[6],
+  '@media (max-width: 640px)': {
+    display: 'none',
+  },
 };
 
 export const favoriteIconStyle = {
@@ -63,3 +94,10 @@ export const useStales = createStyles((theme) => ({
     },
   },
 }));
+
+export const paymentContainerStyle = {
+  '@media (max-width: 640px)': {
+    flexDirection: 'column' as const,
+    alignItems: 'start',
+  },
+};

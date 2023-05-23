@@ -34,6 +34,7 @@ export const SelectCatalogues: FC<SelectCataloguesProps> = ({ value, onChange })
 
       {catalogues && (
         <Select
+          data-elem="industry-select"
           value={value ? `${value}` : null}
           sx={{ input: { fontSize: '14px', height: '42px' } }}
           rightSectionWidth="36px"

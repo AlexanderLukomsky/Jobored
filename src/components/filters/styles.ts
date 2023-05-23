@@ -3,13 +3,31 @@ import { getTheme } from 'common/theme';
 const theme = getTheme();
 
 export const containerStyle = {
+  maxWidth: '315px',
+  width: '100%',
+};
+
+export const filterContainerStyle = {
   padding: '20px',
   border: '1px solid',
   borderRadius: '12px',
   borderColor: theme.colors.grayscale[2],
-  maxWidth: '315px',
-  width: '100%',
   alignSelf: 'start',
+  '@media (max-width: 920px)': {
+    position: 'absolute' as const,
+    zIndex: 100,
+    display: 'none',
+  },
+};
+
+export const actionIconStyle = {
+  padding: '4px',
+  width: '30px',
+  height: '30px',
+
+  '@media (min-width: 920px)': {
+    display: 'none',
+  },
 };
 
 export const headStyle = {

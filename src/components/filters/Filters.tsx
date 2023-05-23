@@ -1,10 +1,10 @@
-import { Box, Button, Flex, NumberInput, Text, UnstyledButton } from '@mantine/core';
+import { ActionIcon, Box, Button, Flex, NumberInput, Text, UnstyledButton } from '@mantine/core';
 import { searchQuery } from 'common/constants';
-import { FormEvent, FC } from 'react';
+import { FormEvent, FC, useRef } from 'react';
 import { ReactComponent as Cross } from 'common/assets/icons/cross.svg';
 import { Nullable } from 'common/types';
+import { ReactComponent as FilterIcon } from 'common/assets/icons/filter.svg';
 import {
-  containerStyle,
   categoryTitleStyle,
   headStyle,
   mainTitleStyle,
@@ -12,6 +12,9 @@ import {
   categoryContainerStyle,
   submitButtonStyle,
   paymentStyle,
+  actionIconStyle,
+  filterContainerStyle,
+  containerStyle,
 } from './styles';
 import { SelectCatalogues } from './select-catalogues';
 
@@ -37,51 +40,84 @@ export const Filters: FC<FiltersProps> = ({
   onChangeCatalogue,
   onReset,
   onSubmit,
-}) => (
-  <Box bg="grayscale.0" sx={containerStyle}>
-    <Flex sx={headStyle} justify="space-between">
-      <Text sx={mainTitleStyle}>Фильтры</Text>
-      <UnstyledButton sx={resetButtonStyle} onClick={onReset}>
-        Сбросить все
-        <Cross />
-        {/* <img src={Cross} alt="reset form" /> */}
-      </UnstyledButton>
-    </Flex>
+}) => {
+  const ref = useRef<Nullable<HTMLDivElement>>(null);
 
-    <form id="search-form" role="search" onSubmit={onSubmit}>
-      <SelectCatalogues value={catalogue} onChange={onChangeCatalogue} />
+  const handleOpenFilters = () => {
+    if (ref && ref.current) {
+      if (!ref.current.style.display) {
+        ref.current.style.display = 'block';
 
-      <Flex sx={categoryContainerStyle}>
-        <Text sx={categoryTitleStyle} content="p">
-          Оклад
-        </Text>
+        return;
+      }
 
-        <NumberInput
-          value={paymentFrom}
-          onChange={onChangePaymentFrom}
-          aria-label="Search payment from"
-          type="number"
-          name={searchQuery.payment_from}
-          placeholder="От"
-          min={0}
-          sx={paymentStyle}
-        />
+      if (ref.current.style.display === 'block') {
+        ref.current.style.display = '';
+      }
+    }
+  };
 
-        <NumberInput
-          value={paymentTo}
-          onChange={onChangePaymentTo}
-          type="number"
-          aria-label="Search payment to"
-          name={searchQuery.payment_to}
-          placeholder="До"
-          min={1}
-          sx={paymentStyle}
-        />
-      </Flex>
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    onSubmit(event);
 
-      <Button type="submit" sx={submitButtonStyle}>
-        Применить
-      </Button>
-    </form>
-  </Box>
-);
+    if (ref.current?.style.display === 'block') {
+      ref.current.style.display = '';
+    }
+  };
+
+  return (
+    <Box sx={containerStyle}>
+      <ActionIcon onClick={handleOpenFilters} sx={actionIconStyle}>
+        <FilterIcon />
+      </ActionIcon>
+
+      <Box ref={ref} bg="grayscale.0" sx={filterContainerStyle}>
+        <Flex sx={headStyle} justify="space-between">
+          <Text sx={mainTitleStyle}>Фильтры</Text>
+          <UnstyledButton sx={resetButtonStyle} onClick={onReset}>
+            Сбросить все
+            <Cross />
+          </UnstyledButton>
+        </Flex>
+
+        <form id="search-form" role="search" onSubmit={handleSubmit}>
+          <SelectCatalogues value={catalogue} onChange={onChangeCatalogue} />
+
+          <Flex sx={categoryContainerStyle}>
+            <Text sx={categoryTitleStyle} content="p">
+              Оклад
+            </Text>
+
+            <NumberInput
+              value={paymentFrom}
+              onChange={onChangePaymentFrom}
+              aria-label="Search payment from"
+              type="number"
+              name={searchQuery.payment_from}
+              placeholder="От"
+              min={0}
+              sx={paymentStyle}
+              data-elem="salary-from-input"
+            />
+
+            <NumberInput
+              value={paymentTo}
+              onChange={onChangePaymentTo}
+              type="number"
+              aria-label="Search payment to"
+              name={searchQuery.payment_to}
+              placeholder="До"
+              min={1}
+              sx={paymentStyle}
+              data-elem="salary-to-input"
+            />
+          </Flex>
+
+          <Button type="submit" sx={submitButtonStyle} data-elem="search-button">
+            Применить
+          </Button>
+        </form>
+      </Box>
+    </Box>
+  );
+};
