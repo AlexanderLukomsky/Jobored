@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, FC } from 'react';
-import { Button, Flex, Input } from '@mantine/core';
+import { Button, Flex, Image, Input } from '@mantine/core';
+import SearchIcon from 'common/assets/icons/search.svg';
 import { buttonStyle, inputStyle } from './styles';
 
 type SearchProps = {
@@ -23,6 +24,7 @@ export const Search: FC<SearchProps> = ({ initialValue = '', onSearch }) => {
   return (
     <Flex>
       <Input
+        icon={<Image width={16} src={SearchIcon} />}
         onChange={handleChange}
         value={value}
         height="48px"
@@ -32,6 +34,7 @@ export const Search: FC<SearchProps> = ({ initialValue = '', onSearch }) => {
             Поиск
           </Button>
         }
+        placeholder="Введите название вакансии"
         rightSectionWidth="105px"
       />
     </Flex>

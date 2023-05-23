@@ -1,7 +1,7 @@
 import { Box, Button, Flex, NumberInput, Text, UnstyledButton } from '@mantine/core';
 import { searchQuery } from 'common/constants';
 import { FormEvent, FC } from 'react';
-import Cross from 'common/assets/icons/cross.svg';
+import { ReactComponent as Cross } from 'common/assets/icons/cross.svg';
 import { Nullable } from 'common/types';
 import {
   containerStyle,
@@ -11,6 +11,7 @@ import {
   resetButtonStyle,
   categoryContainerStyle,
   submitButtonStyle,
+  paymentStyle,
 } from './styles';
 import { SelectCatalogues } from './select-catalogues';
 
@@ -42,7 +43,8 @@ export const Filters: FC<FiltersProps> = ({
       <Text sx={mainTitleStyle}>Фильтры</Text>
       <UnstyledButton sx={resetButtonStyle} onClick={onReset}>
         Сбросить все
-        <img src={Cross} alt="reset form" />
+        <Cross />
+        {/* <img src={Cross} alt="reset form" /> */}
       </UnstyledButton>
     </Flex>
 
@@ -62,7 +64,7 @@ export const Filters: FC<FiltersProps> = ({
           name={searchQuery.payment_from}
           placeholder="От"
           min={0}
-          sx={{ button: { border: 'none' } }}
+          sx={paymentStyle}
         />
 
         <NumberInput
@@ -73,7 +75,7 @@ export const Filters: FC<FiltersProps> = ({
           name={searchQuery.payment_to}
           placeholder="До"
           min={1}
-          sx={{ button: { border: 'none' } }}
+          sx={paymentStyle}
         />
       </Flex>
 

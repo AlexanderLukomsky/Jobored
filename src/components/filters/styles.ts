@@ -27,6 +27,16 @@ export const resetButtonStyle = {
   fontWeight: 500,
   fontSize: '14px',
   color: theme.colors.grayscale[5],
+
+  '&:hover': {
+    color: theme.colors.blue[5],
+
+    '& svg': {
+      '& line': {
+        stroke: theme.colors.blue[5],
+      },
+    },
+  },
 };
 
 export const categoryTitleStyle = {
@@ -46,4 +56,15 @@ export const submitButtonStyle = {
   width: '100%',
   borderRadius: '8px',
   height: '40px',
+};
+
+export const paymentStyle = {
+  button: {
+    border: 'none',
+    color: theme.colors.grayscale[5],
+    cursor: 'pointer',
+    '&:hover': {
+      color: theme.colors.grayscale[7],
+    },
+  },
 };
